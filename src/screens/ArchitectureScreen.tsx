@@ -18,7 +18,7 @@ export const ArchitectureScreen: React.FC = () => {
               The Architecture
             </h2>
             <p className="text-slate-500 text-xl font-light leading-relaxed">
-              Visualizing the hybrid CNN-Transformer pipeline. Decomposing the logic layers from input MRI to attention-based glioma segmentation.
+              Visualizing the hybrid CNN-Transformer pipeline. Decomposing the logic layers from input MRI to multi-class brain tumor segmentation (Glioma, Meningioma, Pituitary).
             </p>
           </div>
           

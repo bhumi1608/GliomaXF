@@ -4,10 +4,11 @@ import { HeroScreen } from './screens/HeroScreen';
 import { ArchitectureScreen } from './screens/ArchitectureScreen';
 import { MetricsScreen } from './screens/MetricsScreen';
 import { ConsortiumScreen } from './screens/ConsortiumScreen';
+import { AnalysisScreen } from './screens/AnalysisScreen';
 import { ChatBot } from './components/ChatBot';
 import { Microscope, Menu, X, ChevronRight } from 'lucide-react';
 
-type Screen = 'hero' | 'architecture' | 'metrics' | 'consortium';
+type Screen = 'hero' | 'architecture' | 'metrics' | 'consortium' | 'analysis';
 
 export default function App() {
   const [activeScreen, setActiveScreen] = useState<Screen>('hero');
@@ -24,6 +25,7 @@ export default function App() {
 
   const navItems: { id: Screen; label: string }[] = [
     { id: 'hero', label: 'Overview' },
+    { id: 'analysis', label: 'Diagnosis' },
     { id: 'architecture', label: 'Technology' },
     { id: 'metrics', label: 'Validation' },
     { id: 'consortium', label: 'Team' },
@@ -124,6 +126,7 @@ export default function App() {
             transition={{ duration: 0.4, ease: "easeOut" }}
           >
             {activeScreen === 'hero' && <HeroScreen />}
+            {activeScreen === 'analysis' && <AnalysisScreen />}
             {activeScreen === 'architecture' && <ArchitectureScreen />}
             {activeScreen === 'metrics' && <MetricsScreen />}
             {activeScreen === 'consortium' && <ConsortiumScreen />}

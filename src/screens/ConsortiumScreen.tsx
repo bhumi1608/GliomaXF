@@ -5,24 +5,24 @@ import { Microscope, Cpu, ClipboardList, Box } from 'lucide-react';
 const researchers = [
   {
     name: "Anshuman Shukla",
-    institution: "PIET",
+    institution: "Parul University",
     role: "Leader",
     icon: <Cpu size={24} />,
   },
   {
-    name: "Sarah Chen, PhD",
+    name: "Foram Thakkar",
     institution: "MIT CSAIL",
     role: "Lead: Computer Vision",
     icon: <Cpu size={24} />,
   },
   {
-    name: "Dr. James Void",
-    institution: "Charité Berlin",
+    name: "Tirth Patel",
+    institution: "",
     role: "Clinical Validation",
     icon: <ClipboardList size={24} />,
   },
   {
-    name: "Mark Stryker",
+    name: "Daksh Patel",
     institution: "Stanford Health",
     role: "System Architecture",
     icon: <Box size={24} />,

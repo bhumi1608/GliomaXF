@@ -31,7 +31,7 @@ export const HeroScreen: React.FC = () => {
           </h1>
 
           <p className="text-slate-500 text-lg leading-relaxed mb-10 max-w-lg">
-            Hybrid CNN-Transformer architecture for glioma segmentation with <span className="text-slate-900 font-semibold">99.2% voxel-level accuracy</span>. Visualizing the invisible for surgical confidence.
+            Hybrid CNN-Transformer architecture for multi-class brain tumor classification (Glioma, Meningioma, Pituitary) with <span className="text-slate-900 font-semibold">99.2% voxel-level accuracy</span>. Visualizing the invisible for surgical confidence.
           </p>
 
           <div className="flex flex-wrap items-center gap-6">
