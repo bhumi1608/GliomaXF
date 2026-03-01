@@ -1,0 +1,5 @@
+{
+  "name": "Gliomax Precision Neuro-Oncology",
+  "description": "Advanced AI-driven neuro-oncology diagnostics platform visualizing high-grade gliomas with surgical precision.",
+  "requestFramePermissions": ["geolocation"]
+}
