@@ -167,7 +167,7 @@ export const MetricsScreen: React.FC = () => {
             <Info size={16} />
             <span className="text-sm">Data validated against BraTS 2023 dataset.</span>
           </div>
-          <div className="flex gap-12">
+          <div className="flex flex-wrap justify-center md:justify-end gap-6 md:gap-12">
             <div className="flex flex-col">
               <span className="text-[9px] font-mono uppercase tracking-widest mb-1">Total Scans</span>
               <span className="text-sm font-mono font-bold text-slate-900">12,405</span>

@@ -114,7 +114,7 @@ export default function App() {
       </AnimatePresence>
 
       {/* Main Content */}
-      <main className="relative">
+      <main className="relative pt-28 md:pt-32">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeScreen}

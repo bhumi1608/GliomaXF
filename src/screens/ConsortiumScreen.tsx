@@ -82,13 +82,13 @@ export const ConsortiumScreen: React.FC = () => {
 
         <div className="border-t border-slate-200 pt-20 pb-12">
           <p className="text-center text-slate-400 text-[10px] font-mono mb-12 uppercase tracking-[0.4em] font-bold">Trust & Verification Partners</p>
-          <div className="flex flex-wrap justify-center items-center gap-16 lg:gap-24 opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
+          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 lg:gap-24 opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
             {partners.map((url, i) => (
               <img 
                 key={i} 
                 src={url} 
                 alt="Partner Logo" 
-                className="h-10 object-contain"
+                className="h-8 md:h-10 object-contain"
                 referrerPolicy="no-referrer"
               />
             ))}

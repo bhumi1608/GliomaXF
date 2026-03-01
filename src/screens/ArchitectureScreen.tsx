@@ -30,19 +30,19 @@ export const ArchitectureScreen: React.FC = () => {
           </div>
         </div>
 
-        <div className="relative h-[800px] flex items-center justify-center">
-          {/* Vertical Connectors */}
-          <div className="absolute w-[1px] h-[500px] border-l-2 border-dashed border-slate-200 left-1/2 -ml-[200px] top-[150px] opacity-40" />
-          <div className="absolute w-[1px] h-[500px] border-l-2 border-dashed border-slate-200 left-1/2 ml-[200px] top-[150px] opacity-40" />
+        <div className="relative min-h-[600px] lg:h-[800px] flex flex-col lg:block items-center gap-24 lg:gap-0">
+          {/* Vertical Connectors (Desktop Only) */}
+          <div className="hidden lg:block absolute w-[1px] h-[500px] border-l-2 border-dashed border-slate-200 left-1/2 -ml-[200px] top-[150px] opacity-40" />
+          <div className="hidden lg:block absolute w-[1px] h-[500px] border-l-2 border-dashed border-slate-200 left-1/2 ml-[200px] top-[150px] opacity-40" />
 
           {/* Layer 1: Input MRI */}
           <motion.div 
-            initial={{ opacity: 0, y: -100 }}
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="absolute top-0 z-30 group"
+            className="relative lg:absolute lg:top-0 lg:left-1/2 lg:-translate-x-1/2 z-30 group w-full max-w-[450px]"
           >
-            <div className="relative w-[450px] h-[300px] [transform:rotateX(55deg)_rotateZ(-45deg)] rounded-lg shadow-2xl overflow-hidden bg-black border border-white/20">
+            <div className="relative w-full aspect-[3/2] lg:w-[450px] lg:h-[300px] lg:[transform:rotateX(55deg)_rotateZ(-45deg)] rounded-lg shadow-2xl overflow-hidden bg-black border border-white/20">
               <img 
                 src='https://lh3.googleusercontent.com/aida-public/AB6AXuDfCQyftEzVJM1GziHEesD76r6Gk61sxeaNCsk-L_M5fyr5I2cNmTudfgy1BFnBFauBo8EOePzRBanR8Uu2DuKBi2hMac6aSCX8k92q0_2WVC-6-CnckKSfLxONxNmWbD6xjOilTcoH_h3sL1_y4mS8wJZdYP1d_QELk2_HV1ASkgfi-lgowBTby0WQ_uB6jk5cqx31QtLeiXeGmkLgpsKd2GG-R_cMLEN4WL7BQcPmwxRv8yY3ED5Q8SWB2Dn73FYxKHgv6Fl1o8xN'
                 alt="MRI Scan" 
@@ -53,7 +53,7 @@ export const ArchitectureScreen: React.FC = () => {
               <div className="absolute top-0 left-0 w-full h-1 bg-white/30 shadow-[0_0_15px_rgba(255,255,255,0.5)] animate-scan" />
             </div>
             
-            <div className="absolute top-10 -left-[300px] w-72 glass-panel p-6 rounded-lg border-slate-200">
+            <div className="mt-6 lg:mt-0 lg:absolute lg:top-10 lg:-left-[300px] lg:w-72 glass-panel p-6 rounded-lg border-slate-200">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest">Layer 01</span>
                 <span className="w-2 h-2 rounded-full bg-slate-400" />
@@ -69,20 +69,20 @@ export const ArchitectureScreen: React.FC = () => {
 
           {/* Layer 2: Feature Extraction */}
           <motion.div 
-            initial={{ opacity: 0, y: 0 }}
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="absolute top-[30%] z-20 group"
+            className="relative lg:absolute lg:top-[30%] lg:left-1/2 lg:-translate-x-1/2 z-20 group w-full max-w-[450px]"
           >
-            <div className="relative w-[450px] h-[300px] [transform:rotateX(55deg)_rotateZ(-45deg)] rounded-lg shadow-xl overflow-hidden bg-slate-900 border border-surgical-blue/30">
+            <div className="relative w-full aspect-[3/2] lg:w-[450px] lg:h-[300px] lg:[transform:rotateX(55deg)_rotateZ(-45deg)] rounded-lg shadow-xl overflow-hidden bg-slate-900 border border-surgical-blue/30">
               <div className="absolute inset-0 opacity-60 bg-[radial-gradient(circle_at_30%_50%,rgba(59,130,246,0.4),transparent_50%),radial-gradient(circle_at_70%_80%,rgba(59,130,246,0.3),transparent_40%)]" />
               <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-surgical-blue rounded-full shadow-[0_0_10px_#3B82F6]" />
               <div className="absolute top-1/2 left-2/3 w-3 h-3 bg-surgical-blue rounded-full shadow-[0_0_15px_#3B82F6]" />
               <div className="absolute bottom-1/3 right-1/4 w-1.5 h-1.5 bg-surgical-blue rounded-full shadow-[0_0_8px_#3B82F6]" />
             </div>
             
-            <div className="absolute top-10 -right-[300px] w-72 glass-panel p-6 rounded-lg border-l-4 border-l-surgical-blue border-slate-200">
+            <div className="mt-6 lg:mt-0 lg:absolute lg:top-10 lg:-right-[300px] lg:w-72 glass-panel p-6 rounded-lg border-l-4 border-l-surgical-blue border-slate-200">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-[10px] font-mono text-surgical-blue uppercase tracking-widest">Layer 02</span>
                 <span className="w-2 h-2 rounded-full bg-surgical-blue" />
@@ -98,18 +98,18 @@ export const ArchitectureScreen: React.FC = () => {
 
           {/* Layer 3: Attention Map */}
           <motion.div 
-            initial={{ opacity: 0, y: 100 }}
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.4 }}
-            className="absolute top-[60%] z-10 group"
+            className="relative lg:absolute lg:top-[60%] lg:left-1/2 lg:-translate-x-1/2 z-10 group w-full max-w-[450px]"
           >
-            <div className="relative w-[450px] h-[300px] [transform:rotateX(55deg)_rotateZ(-45deg)] rounded-lg shadow-xl overflow-hidden bg-slate-900 border border-clinical-red/40">
+            <div className="relative w-full aspect-[3/2] lg:w-[450px] lg:h-[300px] lg:[transform:rotateX(55deg)_rotateZ(-45deg)] rounded-lg shadow-xl overflow-hidden bg-slate-900 border border-clinical-red/40">
               <div className="absolute inset-0 opacity-80 bg-[radial-gradient(circle_at_60%_40%,rgba(239,68,68,0.9),rgba(239,68,68,0.4)_20%,transparent_60%)]" />
               <div className="absolute top-[40%] left-[60%] -translate-x-1/2 -translate-y-1/2 w-20 h-20 border border-clinical-red/50 rounded-full animate-ping" />
             </div>
             
-            <div className="absolute top-10 -left-[300px] w-72 glass-panel p-6 rounded-lg border-l-4 border-l-clinical-red border-slate-200">
+            <div className="mt-6 lg:mt-0 lg:absolute lg:top-10 lg:-left-[300px] lg:w-72 glass-panel p-6 rounded-lg border-l-4 border-l-clinical-red border-slate-200">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-[10px] font-mono text-clinical-red uppercase tracking-widest">Layer 03</span>
                 <span className="w-2 h-2 rounded-full bg-clinical-red animate-pulse" />

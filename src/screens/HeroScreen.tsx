@@ -67,9 +67,9 @@ export const HeroScreen: React.FC = () => {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.2 }}
-          className="flex-1 relative flex items-center justify-center min-h-[600px]"
+          className="flex-1 relative flex items-center justify-center min-h-[400px] lg:min-h-[600px] w-full"
         >
-          <div className="relative w-[500px] h-[500px] flex items-center justify-center">
+          <div className="relative w-full max-w-[500px] aspect-square flex items-center justify-center scale-75 sm:scale-90 lg:scale-100">
             {/* Background Glow */}
             <div className="absolute inset-0 bg-gradient-to-tr from-blue-100/40 to-transparent rounded-full blur-3xl -z-10" />
             
@@ -91,8 +91,8 @@ export const HeroScreen: React.FC = () => {
             </div>
 
             {/* The Brain (CSS Morphing) */}
-            <div className="relative animate-float">
-              <div className="w-[350px] h-[350px] bg-gradient-to-br from-white/80 via-blue-50/40 to-blue-100/10 rounded-[40%_50%_45%_45%] blur-[2px] shadow-inner border border-white/50 animate-morph relative overflow-hidden">
+            <div className="relative animate-float scale-75 sm:scale-100">
+              <div className="w-[280px] h-[280px] sm:w-[350px] sm:h-[350px] bg-gradient-to-br from-white/80 via-blue-50/40 to-blue-100/10 rounded-[40%_50%_45%_45%] blur-[2px] shadow-inner border border-white/50 animate-morph relative overflow-hidden">
                 {/* Tumor Node */}
                 <div className="absolute top-[40%] left-[55%] w-16 h-12 bg-gradient-to-r from-red-500/80 to-red-400/20 rounded-full blur-md animate-pulse-red" />
                 
