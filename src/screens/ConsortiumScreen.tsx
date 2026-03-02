@@ -1,29 +1,29 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Microscope, Cpu, ClipboardList, Box } from 'lucide-react';
+import { Microscope,BrainCircuit, Cpu, ClipboardList,Brain , Box } from 'lucide-react';
 
 const researchers = [
   {
     name: "Anshuman Shukla",
     institution: "Parul University",
     role: "Leader",
-    icon: <Cpu size={24} />,
+    icon: <Brain size={24} />,
   },
   {
     name: "Foram Thakkar",
-    institution: "MIT CSAIL",
+    institution: "Parul University",
     role: "Lead: Computer Vision",
     icon: <Cpu size={24} />,
   },
   {
     name: "Tirth Patel",
-    institution: "",
+    institution: "Parul University",
     role: "Clinical Validation",
     icon: <ClipboardList size={24} />,
   },
   {
     name: "Daksh Patel",
-    institution: "Stanford Health",
+    institution: "Parul University",
     role: "System Architecture",
     icon: <Box size={24} />,
   },
@@ -100,11 +100,11 @@ export const ConsortiumScreen: React.FC = () => {
         <div className="container mx-auto max-w-7xl flex flex-col md:flex-row justify-between items-center gap-8 text-slate-400 text-[10px] font-mono uppercase tracking-widest font-bold">
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2 text-slate-900">
-              <Microscope size={16} />
+              <BrainCircuit size={16} />
               <span>GLIOMAX</span>
             </div>
             <span className="hidden md:block w-px h-4 bg-slate-200" />
-            <p>© 2024 Gliomax Precision Glass. All rights reserved.</p>
+            <p>© 2026 GliomaX Precision Glass. All rights reserved.</p>
           </div>
           
           <div className="flex items-center gap-12">

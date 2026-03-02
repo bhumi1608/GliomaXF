@@ -6,7 +6,7 @@ import { MetricsScreen } from './screens/MetricsScreen';
 import { ConsortiumScreen } from './screens/ConsortiumScreen';
 import { AnalysisScreen } from './screens/AnalysisScreen';
 import { ChatBot } from './components/ChatBot';
-import { Microscope, Menu, X, ChevronRight } from 'lucide-react';
+import { Microscope, Menu,BrainCircuit , X, ChevronRight } from 'lucide-react';
 
 type Screen = 'hero' | 'architecture' | 'metrics' | 'consortium' | 'analysis';
 
@@ -45,7 +45,7 @@ export default function App() {
             onClick={() => setActiveScreen('hero')}
           >
             <div className="size-6 text-slate-900 flex items-center justify-center group-hover:rotate-12 transition-transform">
-              <Microscope size={24} />
+              <BrainCircuit size={24} />
             </div>
             <h2 className="font-heading font-bold text-xl tracking-tighter uppercase">GLIOMAX</h2>
           </div>
@@ -72,7 +72,10 @@ export default function App() {
           </div>
 
           <div className="flex items-center gap-4">
-            <button className="hidden sm:flex items-center justify-center rounded-sm bg-slate-900 hover:bg-slate-800 text-white text-[10px] font-bold uppercase tracking-widest h-10 px-6 transition-all shadow-md shadow-slate-200">
+            <button 
+              onClick={() => setActiveScreen('consortium')}
+              className="hidden sm:flex items-center justify-center rounded-sm bg-slate-900 hover:bg-slate-800 text-white text-[10px] font-bold uppercase tracking-widest h-10 px-6 transition-all shadow-md shadow-slate-200"
+            >
               Contact Research Group
             </button>
             <button 
@@ -125,7 +128,7 @@ export default function App() {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
           >
-            {activeScreen === 'hero' && <HeroScreen />}
+            {activeScreen === 'hero' && <HeroScreen onNavigate={setActiveScreen} />}
             {activeScreen === 'analysis' && <AnalysisScreen />}
             {activeScreen === 'architecture' && <ArchitectureScreen />}
             {activeScreen === 'metrics' && <MetricsScreen />}

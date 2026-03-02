@@ -2,7 +2,11 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, PlayCircle, Activity, Layers, Zap } from 'lucide-react';
 
-export const HeroScreen: React.FC = () => {
+interface HeroScreenProps {
+  onNavigate: (screen: 'hero' | 'architecture' | 'metrics' | 'consortium' | 'analysis') => void;
+}
+
+export const HeroScreen: React.FC<HeroScreenProps> = ({ onNavigate }) => {
   return (
     <div className="relative min-h-screen flex items-center overflow-hidden">
       <div className="absolute inset-0 grid-bg opacity-40 pointer-events-none" />
@@ -35,11 +39,26 @@ export const HeroScreen: React.FC = () => {
           </p>
 
           <div className="flex flex-wrap items-center gap-6">
-            <button className="group flex items-center gap-2 bg-slate-900 text-white px-8 py-4 rounded-sm font-medium hover:bg-slate-800 transition-all shadow-lg shadow-slate-200">
+            <button 
+              onClick={() => onNavigate('analysis')}
+              className="group flex items-center gap-2 bg-surgical-blue text-white px-8 py-4 rounded-sm font-medium hover:bg-blue-700 transition-all shadow-lg shadow-blue-200"
+            >
+              Get Started
+              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            </button>
+
+            <button 
+              onClick={() => onNavigate('metrics')}
+              className="group flex items-center gap-2 bg-slate-900 text-white px-8 py-4 rounded-sm font-medium hover:bg-slate-800 transition-all shadow-lg shadow-slate-200"
+            >
               View Validation Data
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </button>
-            <button className="flex items-center gap-2 text-slate-500 hover:text-slate-900 transition-colors font-medium">
+            
+            <button 
+              onClick={() => onNavigate('architecture')}
+              className="flex items-center gap-2 text-slate-500 hover:text-slate-900 transition-colors font-medium"
+            >
               <PlayCircle size={24} />
               Watch Demo
             </button>
