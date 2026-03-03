@@ -46,6 +46,9 @@ export async function analyzeMRI(base64Image: string, mimeType: string) {
     return JSON.parse(response.text || "{}");
   } catch (e: any) {
     console.error("MRI Analysis Error:", e);
+    if (e.message?.includes("429") || e.message?.includes("RESOURCE_EXHAUSTED")) {
+      throw new Error("Rate limit exceeded for MRI analysis. Please wait 60 seconds and try again.");
+    }
     throw new Error(e.message || "Failed to analyze MRI. Please check your connection.");
   }
 }
@@ -54,9 +57,9 @@ export async function chatWithGemini(message: string, history: { role: 'user' | 
   try {
     const ai = getAI();
     const chat = ai.chats.create({
-      model: "gemini-3.1-pro-preview",
+      model: "gemini-3-flash-preview", // Switched to Flash for higher rate limits
       config: {
-        systemInstruction: "You are Gliomax AI, a medical assistant for neuro-oncologists. You provide information about brain tumor diagnostics (Glioma, Meningioma, Pituitary, and No Tumor), our CNN-Transformer architecture, and clinical performance. Be precise, clinical, and helpful. Use markdown for formatting. If asked about your creators, mention Anshuman Shukla as the Leader from PIET.",
+        systemInstruction: "You are Gliomax AI, a medical assistant for neuro-oncologists. You provide information about brain tumor diagnostics (Glioma, Meningioma, Pituitary, and No Tumor), our CNN-Transformer architecture, and clinical performance. Be precise, clinical, and helpful. Use markdown for formatting. If asked about your creators, mention Anshuman Shukla as the Leader from Parul University.",
       },
       history: history,
     });
@@ -65,6 +68,9 @@ export async function chatWithGemini(message: string, history: { role: 'user' | 
     return result.text;
   } catch (e: any) {
     console.error("Chat Error:", e);
+    if (e.message?.includes("429") || e.message?.includes("RESOURCE_EXHAUSTED")) {
+      throw new Error("Rate limit exceeded. Please wait a moment before sending another message.");
+    }
     throw new Error(e.message || "Failed to connect to clinical database.");
   }
 }
