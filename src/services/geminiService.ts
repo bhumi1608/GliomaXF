@@ -9,47 +9,20 @@ const getAI = () => {
 };
 
 export async function analyzeMRI(base64Image: string, mimeType: string) {
-  const ai = getAI();
   try {
-    const response = await ai.models.generateContent({
-      model: "gemini-3.1-pro-preview",
-      contents: [
-        {
-          inlineData: {
-            data: base64Image.split(',')[1],
-            mimeType: mimeType
-          }
-        },
-        {
-          text: "You are the Gliomax Hybrid CNN-Transformer diagnostic model. Analyze this MRI scan for brain tumors. Your model is trained on four specific classes: 'Glioma', 'Meningioma', 'Pituitary', and 'No Tumor'. Provide a structured response in JSON format with: 'diagnosis' (must be one of the four classes), 'confidence' (number 0-1), 'tumorLocation' (string, or 'N/A' if No Tumor), 'clinicalSummary' (string), and 'suggestedNextSteps' (array of strings). Be professional and clinical. If the image is not an MRI, state 'Invalid Input'."
-        }
-      ],
-      config: {
-        responseMimeType: "application/json",
-        responseSchema: {
-          type: Type.OBJECT,
-          properties: {
-            diagnosis: { type: Type.STRING },
-            confidence: { type: Type.NUMBER },
-            tumorLocation: { type: Type.STRING },
-            clinicalSummary: { type: Type.STRING },
-            suggestedNextSteps: { 
-              type: Type.ARRAY,
-              items: { type: Type.STRING }
-            }
-          },
-          required: ["diagnosis", "confidence", "tumorLocation", "clinicalSummary", "suggestedNextSteps"]
-        }
-      }
-    });
-
-    return JSON.parse(response.text || "{}");
-  } catch (e: any) {
-    console.error("MRI Analysis Error:", e);
-    if (e.message?.includes("429") || e.message?.includes("RESOURCE_EXHAUSTED")) {
-      throw new Error("Rate limit exceeded for MRI analysis. Please wait 60 seconds and try again.");
+    // Convert base64 to File for custom model analysis
+    const binaryString = atob(base64Image.split(',')[1]);
+    const bytes = new Uint8Array(binaryString.length);
+    for (let i = 0; i < binaryString.length; i++) {
+      bytes[i] = binaryString.charCodeAt(i);
     }
-    throw new Error(e.message || "Failed to analyze MRI. Please check your connection.");
+    const file = new File([bytes], 'mri-scan.jpg', { type: mimeType });
+    
+    // Use custom CNN-Transformer model for analysis
+    return await analyzeWithCustomModel(file);
+  } catch (error) {
+    console.error("MRI Analysis Error:", error);
+    throw new Error(error instanceof Error ? error.message : "Failed to analyze MRI. Please check your connection.");
   }
 }
 
@@ -101,5 +74,67 @@ export async function findNearbyResearchCenters(lat: number, lng: number) {
   } catch (e: any) {
     console.error("Maps Error:", e);
     throw new Error(e.message || "Failed to search for nearby centers.");
+  }
+}
+
+// src/services/modelService.ts
+export async function analyzeWithCustomModel(file: File) {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  try {
+    console.log('📤 Sending file to backend:', file.name, file.type, file.size);
+    
+    const response = await fetch('http://localhost:8000/predict', {
+      method: 'POST',
+      body: formData,
+    });
+
+    console.log('📥 Response status:', response.status, response.statusText);
+    
+    const data = await response.json();
+    console.log('📥 Response data:', data);
+
+    if (!response.ok) {
+      console.error('❌ HTTP error response:', response.status, response.statusText, data);
+      throw new Error(data.error || `HTTP error: ${response.status} ${response.statusText}`);
+    }
+
+    // Handle validation rejections (status: 200 but validation failed)
+    if (data.status === 'rejected') {
+      console.warn('⚠️ Validation rejected:', data);
+      throw new Error(data.errors?.[0] || 'Validation failed');
+    }
+
+    // Success - model returned a prediction
+    if (data.status === 'ok' || data.status === 'warn') {
+      console.log('✅ Success response received');
+      
+      // Transform backend response to frontend expected format
+      return {
+        diagnosis: data.pred_class,
+        confidence: data.confidence,
+        clinicalSummary: `AI analysis indicates ${data.pred_class} with ${(data.confidence * 100).toFixed(1)}% confidence. ${data.warnings?.length ? 'Warning: ' + data.warnings[0] : ''}`,
+        warnings: data.warnings || [],
+        allProbabilities: data.probabilities,
+        tumorLocation: "Brain", // Default location
+        suggestedNextSteps: data.suggestedNextSteps,
+        images: data.images,
+        inferenceMs: data.inference_ms
+      };
+    }
+
+    // Handle backend errors
+    if (data.status === 'error') {
+      console.error('❌ Backend processing error:', data);
+      throw new Error(data.message || data.error || 'Backend processing error');
+    }
+
+    // If we reach here, the response format is unexpected
+    console.error('Unexpected response format:', data);
+    throw new Error(data.error || 'Unexpected response format from backend');
+  } catch (error) {
+    console.error('Error analyzing image:', error);
+    throw error;
   }
 }

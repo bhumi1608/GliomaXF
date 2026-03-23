@@ -50,13 +50,12 @@ export const AnalysisScreen: React.FC = () => {
     
     try {
       const analysisResult = await analyzeMRI(preview, file.type);
-      if (analysisResult) {
-        setResult(analysisResult);
-      } else {
-        setError('Analysis failed. Please try again with a clearer image.');
-      }
+      
+      // The analyzeMRI function now throws errors for validation failures
+      // and returns success results directly
+      setResult(analysisResult);
     } catch (err: any) {
-      setError(err.message || 'Connection error. Please check your API key and network.');
+      setError(err.message || 'Connection error. Please check your connection.');
     } finally {
       setIsAnalyzing(false);
     }
@@ -202,6 +201,46 @@ export const AnalysisScreen: React.FC = () => {
                           {result.clinicalSummary}
                         </p>
                       </div>
+
+                      {result.warnings && result.warnings.length > 0 && (
+                        <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                          <div className="flex items-start gap-3">
+                            <AlertCircle size={16} className="text-yellow-600 flex-shrink-0 mt-0.5" />
+                            <div>
+                              <h4 className="text-xs font-bold text-yellow-900 uppercase tracking-wider mb-1">Warning</h4>
+                              <p className="text-sm text-yellow-800">{result.warnings[0]}</p>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                      {result.allProbabilities && (
+                        <div>
+                          <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider mb-3">Class Probabilities</h4>
+                          <div className="space-y-2">
+                            {Object.entries(result.allProbabilities).map(([cls, prob]: [string, any]) => (
+                              <div key={cls} className="flex items-center gap-3">
+                                <div className="flex-1">
+                                  <div className="flex justify-between mb-1">
+                                    <span className="text-xs font-semibold text-slate-700">{cls}</span>
+                                    <span className="text-xs font-bold text-slate-900">{(prob * 100).toFixed(1)}%</span>
+                                  </div>
+                                  <div className="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
+                                    <div 
+                                      className={`h-full transition-all ${
+                                        cls === result.diagnosis 
+                                          ? 'bg-surgical-blue' 
+                                          : 'bg-slate-300'
+                                      }`}
+                                      style={{ width: `${(prob as number) * 100}%` }}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
 
                       <div>
                         <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider mb-2">Tumor Location</h4>
