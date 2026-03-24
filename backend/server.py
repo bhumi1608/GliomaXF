@@ -82,7 +82,7 @@ from pydantic import BaseModel
 #  CONFIGURATION  ←  Edit this block to customise behaviour
 # ─────────────────────────────────────────────────────────────────────────────
 
-MODEL_PATH  = "./model_full.pth"        # ← put your .pth file here
+MODEL_PATH  = "./best_model.pth"        # ← put your .pth file here
 HOST        = "0.0.0.0"
 PORT        = 8000
 
