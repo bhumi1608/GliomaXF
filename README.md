@@ -349,8 +349,8 @@ const data = await res.json();
 
 ```bash
 # Clone
-git clone https://github.com/YOUR_USERNAME/brainscan-ai.git
-cd brainscan-ai
+git clone https://github.com/YOUR_USERNAME/GliomaXF.git
+cd GliomaXF
 
 # Create virtual environment
 python -m venv venv
